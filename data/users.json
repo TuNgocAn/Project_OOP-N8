@@ -1,0 +1,48 @@
+[
+  {
+    "companyName": "Nhà xe Hoàng Long",
+    "hotline": "0988111222",
+    "officeAddress": "Bến xe Giáp Bát, Giải Phóng, Hà Nội",
+    "id": "OP_HOANGLONG",
+    "username": "hoanglong",
+    "password": "123456",
+    "fullName": "Đại diện Hoàng Long",
+    "phoneNumber": "0988111222",
+    "role": "OPERATOR",
+    "createdAt": "2026-09-21T03:56:19.5657158"
+  },
+  {
+    "companyName": "Nhà xe Phương Trang (FUTA)",
+    "hotline": "19006067",
+    "officeAddress": "Bến xe Miền Đông, TP. Hồ Chí Minh",
+    "id": "OP_PHUONGTRANG",
+    "username": "phuongtrang",
+    "password": "123456",
+    "fullName": "Đại diện FUTA",
+    "phoneNumber": "19006067",
+    "role": "OPERATOR",
+    "createdAt": "2026-09-21T03:56:19.5757393"
+  },
+  {
+    "email": "an.nguyen@gmail.com",
+    "hometown": "Nam Định",
+    "id": "CUS_AN",
+    "username": "khachhang",
+    "password": "123456",
+    "fullName": "Nguyễn Văn An",
+    "phoneNumber": "0912000111",
+    "role": "CUSTOMER",
+    "createdAt": "2026-09-21T03:56:19.5777508"
+  },
+  {
+    "email": "hoang.le@gmail.com",
+    "hometown": "Nghệ An",
+    "id": "CUS_HOANG",
+    "username": "minhhoang",
+    "password": "123456",
+    "fullName": "Lê Minh Hoàng",
+    "phoneNumber": "0983000222",
+    "role": "CUSTOMER",
+    "createdAt": "2026-09-21T03:56:19.5797646"
+  }
+]

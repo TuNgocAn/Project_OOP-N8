@@ -1,0 +1,140 @@
+[
+  {
+    "id": "TRIP_HN_ND_01",
+    "operatorId": "OP_HOANGLONG",
+    "operatorName": "Nhà xe Hoàng Long",
+    "vehicleId": "VEH_HL01",
+    "licensePlate": "29B-123.45",
+    "vehicleType": "LIMOUSINE",
+    "driver": {
+      "id": "DRV_01",
+      "fullName": "Nguyễn Văn Hùng",
+      "phoneNumber": "0912345678",
+      "licenseNumber": "GPLX-E-019283",
+      "yearsOfExperience": 10
+    },
+    "departureLocation": "Hà Nội (Bến xe Giáp Bát)",
+    "destinationLocation": "Nam Định (Bến xe Nam Định)",
+    "departureTime": "2026-09-21T07:30:00",
+    "estimatedDurationHours": 1.5,
+    "basePrice": 120000.0,
+    "totalSeats": 24,
+    "availableSeats": 24,
+    "status": "SCHEDULED"
+  },
+  {
+    "id": "TRIP_HN_ND_02",
+    "operatorId": "OP_HOANGLONG",
+    "operatorName": "Nhà xe Hoàng Long",
+    "vehicleId": "VEH_HL01",
+    "licensePlate": "29B-123.45",
+    "vehicleType": "LIMOUSINE",
+    "driver": {
+      "id": "DRV_01",
+      "fullName": "Nguyễn Văn Hùng",
+      "phoneNumber": "0912345678",
+      "licenseNumber": "GPLX-E-019283",
+      "yearsOfExperience": 10
+    },
+    "departureLocation": "Hà Nội (Bến xe Giáp Bát)",
+    "destinationLocation": "Nam Định (Bến xe Nam Định)",
+    "departureTime": "2026-09-21T14:00:00",
+    "estimatedDurationHours": 1.5,
+    "basePrice": 120000.0,
+    "totalSeats": 24,
+    "availableSeats": 24,
+    "status": "SCHEDULED"
+  },
+  {
+    "id": "TRIP_HN_TH_01",
+    "operatorId": "OP_HOANGLONG",
+    "operatorName": "Nhà xe Hoàng Long",
+    "vehicleId": "VEH_HL02",
+    "licensePlate": "29B-888.88",
+    "vehicleType": "SLEEPER",
+    "driver": {
+      "id": "DRV_02",
+      "fullName": "Trần Văn Dũng",
+      "phoneNumber": "0987654321",
+      "licenseNumber": "GPLX-E-098712",
+      "yearsOfExperience": 12
+    },
+    "departureLocation": "Hà Nội (Bến xe Nước Ngầm)",
+    "destinationLocation": "Thanh Hóa (Bến xe Phía Bắc TP. Thanh Hóa)",
+    "departureTime": "2026-09-21T09:00:00",
+    "estimatedDurationHours": 2.5,
+    "basePrice": 180000.0,
+    "totalSeats": 40,
+    "availableSeats": 38,
+    "status": "SCHEDULED"
+  },
+  {
+    "id": "TRIP_HN_NA_01",
+    "operatorId": "OP_HOANGLONG",
+    "operatorName": "Nhà xe Hoàng Long",
+    "vehicleId": "VEH_HL02",
+    "licensePlate": "29B-888.88",
+    "vehicleType": "SLEEPER",
+    "driver": {
+      "id": "DRV_03",
+      "fullName": "Lê Văn Thành",
+      "phoneNumber": "0905123456",
+      "licenseNumber": "GPLX-E-554433",
+      "yearsOfExperience": 15
+    },
+    "departureLocation": "Hà Nội (Bến xe Nước Ngầm)",
+    "destinationLocation": "Nghệ An (Bến xe Bắc Vinh)",
+    "departureTime": "2026-09-21T21:00:00",
+    "estimatedDurationHours": 5.5,
+    "basePrice": 250000.0,
+    "totalSeats": 40,
+    "availableSeats": 35,
+    "status": "SCHEDULED"
+  },
+  {
+    "id": "TRIP_HCM_DL_01",
+    "operatorId": "OP_PHUONGTRANG",
+    "operatorName": "Nhà xe Phương Trang (FUTA)",
+    "vehicleId": "VEH_PT01",
+    "licensePlate": "51B-112.23",
+    "vehicleType": "SLEEPER",
+    "driver": {
+      "id": "DRV_04",
+      "fullName": "Phạm Quốc Bảo",
+      "phoneNumber": "0933445566",
+      "licenseNumber": "GPLX-E-776655",
+      "yearsOfExperience": 14
+    },
+    "departureLocation": "TP. Hồ Chí Minh (Bến xe Miền Đông)",
+    "destinationLocation": "Lâm Đồng (Bến xe Liên tỉnh Đà Lạt)",
+    "departureTime": "2026-09-21T22:30:00",
+    "estimatedDurationHours": 7.0,
+    "basePrice": 300000.0,
+    "totalSeats": 36,
+    "availableSeats": 34,
+    "status": "SCHEDULED"
+  },
+  {
+    "id": "TRIP_HCM_CT_01",
+    "operatorId": "OP_PHUONGTRANG",
+    "operatorName": "Nhà xe Phương Trang (FUTA)",
+    "vehicleId": "VEH_PT02",
+    "licensePlate": "51B-456.78",
+    "vehicleType": "LIMOUSINE",
+    "driver": {
+      "id": "DRV_05",
+      "fullName": "Võ Minh Trí",
+      "phoneNumber": "0977889900",
+      "licenseNumber": "GPLX-D-112233",
+      "yearsOfExperience": 8
+    },
+    "departureLocation": "TP. Hồ Chí Minh (Bến xe Miền Tây)",
+    "destinationLocation": "Cần Thơ (Bến xe Trung tâm Cần Thơ)",
+    "departureTime": "2026-09-21T15:30:00",
+    "estimatedDurationHours": 3.0,
+    "basePrice": 165000.0,
+    "totalSeats": 22,
+    "availableSeats": 20,
+    "status": "SCHEDULED"
+  }
+]

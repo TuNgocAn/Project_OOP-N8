@@ -1,0 +1,56 @@
+[
+  {
+    "vipAmenities": "Ghế bọc da massage, TV giải trí riêng, cổng sạc Type-C, tai nghe cao cấp",
+    "id": "VEH_HL01",
+    "licensePlate": "29B-123.45",
+    "operatorId": "OP_HOANGLONG",
+    "vehicleType": "LIMOUSINE",
+    "totalSeats": 24,
+    "status": "AT_STATION",
+    "stationName": "Bến xe Giáp Bát - Hà Nội",
+    "lastUpdated": "2026-09-21T03:56:19.5817624"
+  },
+  {
+    "bunkLevels": 2,
+    "id": "VEH_HL02",
+    "licensePlate": "29B-888.88",
+    "operatorId": "OP_HOANGLONG",
+    "vehicleType": "SLEEPER",
+    "totalSeats": 40,
+    "status": "AT_STATION",
+    "stationName": "Bến xe Nước Ngầm - Hà Nội",
+    "lastUpdated": "2026-09-21T03:56:19.5847635"
+  },
+  {
+    "id": "VEH_HL03",
+    "licensePlate": "29B-999.99",
+    "operatorId": "OP_HOANGLONG",
+    "vehicleType": "SEATER",
+    "totalSeats": 29,
+    "status": "IN_TRANSIT",
+    "stationName": "Bến xe Giáp Bát - Hà Nội",
+    "lastUpdated": "2026-09-21T03:56:19.5857622"
+  },
+  {
+    "bunkLevels": 2,
+    "id": "VEH_PT01",
+    "licensePlate": "51B-112.23",
+    "operatorId": "OP_PHUONGTRANG",
+    "vehicleType": "SLEEPER",
+    "totalSeats": 36,
+    "status": "AT_STATION",
+    "stationName": "Bến xe Miền Đông - TP.HCM",
+    "lastUpdated": "2026-09-21T03:56:19.5881466"
+  },
+  {
+    "vipAmenities": "Ghế bọc da massage, TV giải trí riêng, cổng sạc Type-C, tai nghe cao cấp",
+    "id": "VEH_PT02",
+    "licensePlate": "51B-456.78",
+    "operatorId": "OP_PHUONGTRANG",
+    "vehicleType": "LIMOUSINE",
+    "totalSeats": 22,
+    "status": "AT_STATION",
+    "stationName": "Bến xe Miền Tây - TP.HCM",
+    "lastUpdated": "2026-09-21T03:56:19.589148"
+  }
+]

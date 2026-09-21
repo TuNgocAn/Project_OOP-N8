@@ -1,0 +1,22 @@
+[
+  {
+    "id": "REV_01",
+    "operatorId": "OP_HOANGLONG",
+    "tripId": "TRIP_HN_ND_01",
+    "customerId": "CUS_AN",
+    "customerName": "Nguyễn Văn An",
+    "rating": 5,
+    "comment": "Xe chạy êm ái, bác tài Hùng lái rất cẩn thận và đúng giờ. Rất hài lòng!",
+    "createdAt": "2026-09-21T03:56:19.6121456"
+  },
+  {
+    "id": "REV_02",
+    "operatorId": "OP_HOANGLONG",
+    "tripId": "TRIP_HN_TH_01",
+    "customerId": "CUS_HOANG",
+    "customerName": "Lê Minh Hoàng",
+    "rating": 4,
+    "comment": "Chất lượng xe tốt, điều hòa mát rượi, nhân viên phục vụ tận tình.",
+    "createdAt": "2026-09-21T03:56:19.6141553"
+  }
+]
