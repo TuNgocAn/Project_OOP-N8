@@ -1,0 +1,143 @@
+USE [master];
+GO
+IF DB_ID(N'TheoDoiChuyenXe') IS NULL
+    CREATE DATABASE [TheoDoiChuyenXe];
+GO
+USE [TheoDoiChuyenXe];
+GO
+
+-- Run only on a new/empty database. Does not create SQL logins or users.
+SET ANSI_NULLS ON;
+GO
+SET QUOTED_IDENTIFIER ON;
+GO
+
+CREATE TABLE dbo.[USER] (
+ MaUser int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+ Username nvarchar(50) NOT NULL UNIQUE,
+ [Password] nvarchar(255) NOT NULL,
+ Email nvarchar(100) NOT NULL UNIQUE,
+ SoDienThoai varchar(15) NULL,
+ NgayTao datetime2(7) NOT NULL CONSTRAINT DF_USER_NgayTao DEFAULT (SYSDATETIME()),
+ TrangThai nvarchar(30) NOT NULL CONSTRAINT DF_USER_TrangThai DEFAULT (N'HoatDong')
+);
+GO
+CREATE TABLE dbo.KHACH_HANG (
+ MaUser int NOT NULL PRIMARY KEY,
+ HoTen nvarchar(100) NOT NULL,
+ DiaChi nvarchar(255) NULL,
+ NgaySinh date NULL
+);
+GO
+CREATE TABLE dbo.NHA_XE (
+ MaUser int NOT NULL PRIMARY KEY,
+ TenNhaXe nvarchar(150) NOT NULL,
+ DiaChi nvarchar(255) NULL,
+ SoDienThoai varchar(15) NULL,
+ MoTa nvarchar(500) NULL
+);
+GO
+CREATE TABLE dbo.LICH_TRINH (
+ MaLichTrinh int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+ DiemDi nvarchar(150) NOT NULL,
+ DiemDen nvarchar(150) NOT NULL,
+ ThoiGianDuKien int NULL,
+ KhoangCach decimal(10,2) NULL,
+ CONSTRAINT CK_LICHTRINH_KHOANGCACH CHECK (KhoangCach IS NULL OR KhoangCach > 0),
+ CONSTRAINT CK_LICHTRINH_THOIGIAN CHECK (ThoiGianDuKien IS NULL OR ThoiGianDuKien > 0)
+);
+GO
+CREATE TABLE dbo.TAI_XE (
+ MaTaiXe int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+ HoTen nvarchar(100) NOT NULL,
+ SoDienThoai varchar(15) NULL,
+ SoGPLX nvarchar(30) NOT NULL UNIQUE,
+ LoaiBang nvarchar(20) NULL,
+ TrangThai nvarchar(30) NOT NULL CONSTRAINT DF_TAI_XE_TrangThai DEFAULT (N'HoatDong'),
+ MaNhaXe int NOT NULL
+);
+GO
+CREATE TABLE dbo.XE (
+ MaXe int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+ BienSo nvarchar(20) NOT NULL UNIQUE,
+ LoaiXe nvarchar(50) NULL,
+ SoCho int NOT NULL,
+ TrangThai nvarchar(30) NOT NULL CONSTRAINT DF_XE_TrangThai DEFAULT (N'SanSang'),
+ MaNhaXe int NOT NULL,
+ CONSTRAINT CK_XE_SOCHO CHECK (SoCho > 0)
+);
+GO
+CREATE TABLE dbo.CHUYEN_XE (
+ MaChuyen int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+ NgayKhoiHanh date NOT NULL,
+ GioKhoiHanh time(7) NOT NULL,
+ GioDuKienDen time(7) NOT NULL,
+ GiaVe decimal(12,2) NOT NULL,
+ TrangThai nvarchar(30) NOT NULL CONSTRAINT DF_CHUYEN_XE_TrangThai DEFAULT (N'ChuaChay'),
+ MaNhaXe int NOT NULL,
+ MaXe int NOT NULL,
+ MaTaiXe int NOT NULL,
+ MaLichTrinh int NOT NULL,
+ CONSTRAINT CK_CHUYENXE_GIAVE CHECK (GiaVe >= 0)
+);
+GO
+CREATE TABLE dbo.DANH_GIA (
+ MaDanhGia int IDENTITY(1,1) NOT NULL PRIMARY KEY,
+ SoSao int NOT NULL,
+ NoiDung nvarchar(1000) NULL,
+ NgayDanhGia datetime2(7) NOT NULL CONSTRAINT DF_DANH_GIA_NgayDanhGia DEFAULT (SYSDATETIME()),
+ MaKhachHang int NOT NULL,
+ MaChuyen int NOT NULL,
+ CONSTRAINT CK_DANHGIA_SOSAO CHECK (SoSao BETWEEN 1 AND 5)
+);
+GO
+
+-- Sample data from the supplied script
+SET IDENTITY_INSERT dbo.[USER] ON;
+INSERT dbo.[USER] (MaUser, Username, [Password], Email, SoDienThoai, NgayTao, TrangThai) VALUES
+(7,N'khach01',N'demo123',N'khach01@example.com',N'0900000001','2026-10-11T12:25:14.1847562',N'HoatDong'),
+(8,N'nhaxe01',N'demo123',N'nhaxe01@example.com',N'0900000002','2026-10-11T12:25:14.1847562',N'HoatDong');
+SET IDENTITY_INSERT dbo.[USER] OFF;
+GO
+INSERT dbo.KHACH_HANG (MaUser,HoTen,DiaChi,NgaySinh) VALUES (7,N'Nguyen Van An',N'Ha Noi','2005-01-15');
+GO
+INSERT dbo.NHA_XE (MaUser,TenNhaXe,DiaChi,SoDienThoai,MoTa) VALUES (8,N'Nha xe Sao Viet',N'Ha Noi',N'0900000002',N'Chuyen xe duong dai');
+GO
+SET IDENTITY_INSERT dbo.LICH_TRINH ON;
+INSERT dbo.LICH_TRINH (MaLichTrinh,DiemDi,DiemDen,ThoiGianDuKien,KhoangCach) VALUES (5,N'Ha Noi',N'Thanh Hoa',180,150.00);
+SET IDENTITY_INSERT dbo.LICH_TRINH OFF;
+GO
+SET IDENTITY_INSERT dbo.TAI_XE ON;
+INSERT dbo.TAI_XE (MaTaiXe,HoTen,SoDienThoai,SoGPLX,LoaiBang,TrangThai,MaNhaXe) VALUES (6,N'Tran Van Binh',N'0900000003',N'GPLX12345',N'D',N'HoatDong',8);
+SET IDENTITY_INSERT dbo.TAI_XE OFF;
+GO
+SET IDENTITY_INSERT dbo.XE ON;
+INSERT dbo.XE (MaXe,BienSo,LoaiXe,SoCho,TrangThai,MaNhaXe) VALUES (6,N'29B-12345',N'Xe khach',40,N'SanSang',8);
+SET IDENTITY_INSERT dbo.XE OFF;
+GO
+SET IDENTITY_INSERT dbo.CHUYEN_XE ON;
+INSERT dbo.CHUYEN_XE (MaChuyen,NgayKhoiHanh,GioKhoiHanh,GioDuKienDen,GiaVe,TrangThai,MaNhaXe,MaXe,MaTaiXe,MaLichTrinh)
+VALUES (6,'2026-10-15','08:00:00','11:00:00',150000.00,N'ChuaChay',8,6,6,5);
+SET IDENTITY_INSERT dbo.CHUYEN_XE OFF;
+GO
+SET IDENTITY_INSERT dbo.DANH_GIA ON;
+INSERT dbo.DANH_GIA (MaDanhGia,SoSao,NoiDung,NgayDanhGia,MaKhachHang,MaChuyen)
+VALUES (6,5,N'Danh gia thu nghiem','2026-10-11T12:27:40.9476381',7,6);
+SET IDENTITY_INSERT dbo.DANH_GIA OFF;
+GO
+
+-- Foreign keys are added after sample rows have been inserted.
+ALTER TABLE dbo.KHACH_HANG ADD CONSTRAINT FK_KHACHHANG_USER FOREIGN KEY (MaUser) REFERENCES dbo.[USER](MaUser);
+ALTER TABLE dbo.NHA_XE ADD CONSTRAINT FK_NHAXE_USER FOREIGN KEY (MaUser) REFERENCES dbo.[USER](MaUser);
+ALTER TABLE dbo.TAI_XE ADD CONSTRAINT FK_TAIXE_NHAXE FOREIGN KEY (MaNhaXe) REFERENCES dbo.NHA_XE(MaUser);
+ALTER TABLE dbo.XE ADD CONSTRAINT FK_XE_NHAXE FOREIGN KEY (MaNhaXe) REFERENCES dbo.NHA_XE(MaUser);
+ALTER TABLE dbo.CHUYEN_XE ADD CONSTRAINT FK_CHUYENXE_LICHTRINH FOREIGN KEY (MaLichTrinh) REFERENCES dbo.LICH_TRINH(MaLichTrinh);
+ALTER TABLE dbo.CHUYEN_XE ADD CONSTRAINT FK_CHUYENXE_NHAXE FOREIGN KEY (MaNhaXe) REFERENCES dbo.NHA_XE(MaUser);
+ALTER TABLE dbo.CHUYEN_XE ADD CONSTRAINT FK_CHUYENXE_TAIXE FOREIGN KEY (MaTaiXe) REFERENCES dbo.TAI_XE(MaTaiXe);
+ALTER TABLE dbo.CHUYEN_XE ADD CONSTRAINT FK_CHUYENXE_XE FOREIGN KEY (MaXe) REFERENCES dbo.XE(MaXe);
+ALTER TABLE dbo.DANH_GIA ADD CONSTRAINT FK_DANHGIA_CHUYENXE FOREIGN KEY (MaChuyen) REFERENCES dbo.CHUYEN_XE(MaChuyen);
+ALTER TABLE dbo.DANH_GIA ADD CONSTRAINT FK_DANHGIA_KHACHHANG FOREIGN KEY (MaKhachHang) REFERENCES dbo.KHACH_HANG(MaUser);
+GO
+
+PRINT N'TheoDoiChuyenXe schema and sample data created successfully.';
+GO
