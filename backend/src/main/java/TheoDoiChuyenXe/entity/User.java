@@ -1,36 +1,40 @@
+
 package TheoDoiChuyenXe.entity;
+
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "[USER]")
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MaUser")
     private Integer maUser;
 
-    @Column(name = "Username")
+    @Column(name = "Username", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "Password")
+    @Column(name = "Password", nullable = false)
     private String password;
 
-    @Column(name = "Email")
+    @Column(name = "Email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "SoDienThoai")
     private String soDienThoai;
 
-    @Column(name = "NgayTao")
+    @Column(name = "NgayTao", insertable = false, updatable = false)
     private LocalDateTime ngayTao;
 
-    @Column(name = "TrangThai")
+    @Column(name = "TrangThai", insertable = false)
     private String trangThai;
 
     public User() {

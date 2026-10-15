@@ -1,4 +1,7 @@
+
 package TheoDoiChuyenXe.entity;
+
+import java.math.BigDecimal;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,17 +19,17 @@ public class LichTrinh {
     @Column(name = "MaLichTrinh")
     private Integer maLichTrinh;
 
-    @Column(name = "DiemDi")
+    @Column(name = "DiemDi", nullable = false)
     private String diemDi;
 
-    @Column(name = "DiemDen")
+    @Column(name = "DiemDen", nullable = false)
     private String diemDen;
 
     @Column(name = "ThoiGianDuKien")
     private Integer thoiGianDuKien;
 
-    @Column(name = "KhoangCach")
-    private Double khoangCach;
+    @Column(name = "KhoangCach", precision = 10, scale = 2)
+    private BigDecimal khoangCach;
 
     public LichTrinh() {
     }
@@ -63,11 +66,11 @@ public class LichTrinh {
         this.thoiGianDuKien = thoiGianDuKien;
     }
 
-    public Double getKhoangCach() {
+    public BigDecimal getKhoangCach() {
         return khoangCach;
     }
 
-    public void setKhoangCach(Double khoangCach) {
+    public void setKhoangCach(BigDecimal khoangCach) {
         this.khoangCach = khoangCach;
     }
 }

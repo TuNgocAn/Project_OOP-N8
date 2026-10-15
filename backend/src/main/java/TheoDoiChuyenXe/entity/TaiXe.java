@@ -25,15 +25,6 @@ public class TaiXe {
     @Column(name = "SoDienThoai")
     private String soDienThoai;
 
-    @Column(name = "SoGPLX")
-    private String soGPLX;
-
-    @Column(name = "LoaiBang")
-    private String loaiBang;
-
-    @Column(name = "TrangThai")
-    private String trangThai;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaNhaXe")
     private NhaXe nhaXe;
@@ -63,30 +54,6 @@ public class TaiXe {
 
     public void setSoDienThoai(String soDienThoai) {
         this.soDienThoai = soDienThoai;
-    }
-
-    public String getSoGPLX() {
-        return soGPLX;
-    }
-
-    public void setSoGPLX(String soGPLX) {
-        this.soGPLX = soGPLX;
-    }
-
-    public String getLoaiBang() {
-        return loaiBang;
-    }
-
-    public void setLoaiBang(String loaiBang) {
-        this.loaiBang = loaiBang;
-    }
-
-    public String getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(String trangThai) {
-        this.trangThai = trangThai;
     }
 
     public NhaXe getNhaXe() {
