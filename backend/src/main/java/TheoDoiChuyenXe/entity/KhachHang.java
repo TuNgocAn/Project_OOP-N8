@@ -2,9 +2,10 @@ package TheoDoiChuyenXe.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -15,12 +16,12 @@ import java.time.LocalDate;
 public class KhachHang {
 
     @Id
-    @Column(name = "MaUser")
-    private Integer maUser;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MaKhachHang")
+    private Integer maKhachHang;
 
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "MaUser")
+    @JoinColumn(name = "MaUser", nullable = false, unique = true)
     private User user;
 
     @Column(name = "HoTen")
@@ -35,12 +36,12 @@ public class KhachHang {
     public KhachHang() {
     }
 
-    public Integer getMaUser() {
-        return maUser;
+    public Integer getMaKhachHang() {
+        return maKhachHang;
     }
 
-    public void setMaUser(Integer maUser) {
-        this.maUser = maUser;
+    public void setMaKhachHang(Integer maKhachHang) {
+        this.maKhachHang = maKhachHang;
     }
 
     public User getUser() {

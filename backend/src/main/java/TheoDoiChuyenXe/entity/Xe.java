@@ -31,9 +31,15 @@ public class Xe {
     @Column(name = "TrangThai")
     private String trangThai;
 
+    // Quan hệ nhiều xe thuộc một nhà xe
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MaNhaXe")
     private NhaXe nhaXe;
+
+    // Quan hệ nhiều xe thuộc một tài xế
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MaTaiXe")
+    private TaiXe taiXe;
 
     public Xe() {
     }
@@ -84,5 +90,13 @@ public class Xe {
 
     public void setNhaXe(NhaXe nhaXe) {
         this.nhaXe = nhaXe;
+    }
+
+    public TaiXe getTaiXe() {
+        return taiXe;
+    }
+
+    public void setTaiXe(TaiXe taiXe) {
+        this.taiXe = taiXe;
     }
 }

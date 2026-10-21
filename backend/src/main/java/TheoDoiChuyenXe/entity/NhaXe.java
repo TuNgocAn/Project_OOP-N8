@@ -1,11 +1,13 @@
+
 package TheoDoiChuyenXe.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,12 +15,12 @@ import jakarta.persistence.Table;
 public class NhaXe {
 
     @Id
-    @Column(name = "MaUser")
-    private Integer maUser;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "MaNhaXe")
+    private Integer maNhaXe;
 
     @OneToOne
-    @MapsId
-    @JoinColumn(name = "MaUser")
+    @JoinColumn(name = "MaUser", nullable = false, unique = true)
     private User user;
 
     @Column(name = "TenNhaXe")
@@ -36,12 +38,12 @@ public class NhaXe {
     public NhaXe() {
     }
 
-    public Integer getMaUser() {
-        return maUser;
+    public Integer getMaNhaXe() {
+        return maNhaXe;
     }
 
-    public void setMaUser(Integer maUser) {
-        this.maUser = maUser;
+    public void setMaNhaXe(Integer maNhaXe) {
+        this.maNhaXe = maNhaXe;
     }
 
     public User getUser() {
