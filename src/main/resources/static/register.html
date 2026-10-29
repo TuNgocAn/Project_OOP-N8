@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đăng ký – BusTrack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="auth">
+    <aside class="brand">
+      <a class="logo" href="login.html">BusTrack</a>
+      <p class="brand-title">Tạo tài khoản để bắt đầu chuyến đi.</p>
+      <div class="route" aria-hidden="true">
+        <span class="bus"></span>
+        <ol>
+        <li>Hà Nội</li>
+        <li>Vinh</li>
+        <li>Huế</li>
+        <li>Đà Nẵng</li>
+        <li>TP. Hồ Chí Minh</li>
+        </ol>
+      </div>
+      <p class="brand-note">Chỉ mất một phút. Thông tin cá nhân giúp nhà xe liên hệ khi cần.</p>
+    </aside>
+
+    <main class="panel">
+      <section class="card card-wide">
+        <h1>Đăng ký</h1>
+        <p class="lead">Tạo tài khoản khách hàng mới.</p>
+        <div class="perforation" aria-hidden="true"></div>
+
+        <div id="alert" role="alert" hidden></div>
+
+        <form id="register-form" novalidate>
+          <fieldset>
+            <legend>Tài khoản</legend>
+
+            <div class="field">
+              <label for="username">Tên đăng nhập</label>
+              <input id="username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+              <p class="hint">4–50 ký tự: chữ, số, dấu chấm hoặc gạch dưới.</p>
+              <p class="field-error" data-error-for="username"></p>
+            </div>
+
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required>
+              <p class="field-error" data-error-for="email"></p>
+            </div>
+
+            <div class="field">
+              <label for="password">Mật khẩu</label>
+              <div class="input-wrap">
+                <input id="password" name="password" type="password" autocomplete="new-password" required>
+                <button type="button" class="toggle" aria-label="Hiện mật khẩu" aria-pressed="false">Hiện</button>
+              </div>
+              <p class="hint">Từ 6 đến 64 ký tự.</p>
+              <p class="field-error" data-error-for="password"></p>
+            </div>
+
+            <div class="field">
+              <label for="confirmPassword">Nhập lại mật khẩu</label>
+              <div class="input-wrap">
+                <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" required>
+                <button type="button" class="toggle" aria-label="Hiện mật khẩu" aria-pressed="false">Hiện</button>
+              </div>
+              <p class="field-error" data-error-for="confirmPassword"></p>
+            </div>
+          </fieldset>
+
+          <div class="perforation" aria-hidden="true"></div>
+
+          <fieldset>
+            <legend>Thông tin hành khách</legend>
+
+            <div class="field">
+              <label for="hoTen">Họ và tên</label>
+              <input id="hoTen" name="hoTen" type="text" autocomplete="name" required>
+              <p class="field-error" data-error-for="hoTen"></p>
+            </div>
+
+            <div class="field">
+              <label for="soDienThoai">Số điện thoại <span class="optional">(không bắt buộc)</span></label>
+              <input id="soDienThoai" name="soDienThoai" type="tel" autocomplete="tel" inputmode="tel">
+              <p class="field-error" data-error-for="soDienThoai"></p>
+            </div>
+
+            <div class="field">
+              <label for="ngaySinh">Ngày sinh <span class="optional">(không bắt buộc)</span></label>
+              <input id="ngaySinh" name="ngaySinh" type="date" autocomplete="bday">
+              <p class="field-error" data-error-for="ngaySinh"></p>
+            </div>
+
+            <div class="field">
+              <label for="diaChi">Địa chỉ <span class="optional">(không bắt buộc)</span></label>
+              <textarea id="diaChi" name="diaChi" rows="2" autocomplete="street-address"></textarea>
+              <p class="field-error" data-error-for="diaChi"></p>
+            </div>
+          </fieldset>
+
+          <button type="submit" class="btn btn-block" id="submit-btn">Tạo tài khoản</button>
+        </form>
+
+        <p class="switch">Đã có tài khoản? <a href="login.html">Đăng nhập</a></p>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/register.js"></script>
+</body>
+</html>

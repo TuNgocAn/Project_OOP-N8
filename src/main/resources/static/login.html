@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đăng nhập – BusTrack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="auth">
+    <aside class="brand">
+      <a class="logo" href="login.html">BusTrack</a>
+      <p class="brand-title">Đặt vé xe khách trên mọi tuyến.</p>
+      <div class="route" aria-hidden="true">
+        <span class="bus"></span>
+        <ol>
+        <li>Hà Nội</li>
+        <li>Vinh</li>
+        <li>Huế</li>
+        <li>Đà Nẵng</li>
+        <li>TP. Hồ Chí Minh</li>
+        </ol>
+      </div>
+      <p class="brand-note">Chọn tuyến, chọn chuyến và quản lý hồ sơ hành khách của bạn ở một nơi.</p>
+    </aside>
+
+    <main class="panel">
+      <section class="card">
+        <h1>Đăng nhập</h1>
+        <p class="lead">Dùng tên đăng nhập hoặc email đã đăng ký.</p>
+        <div class="perforation" aria-hidden="true"></div>
+
+        <div id="alert" role="alert" hidden></div>
+
+        <form id="login-form" novalidate>
+          <div class="field">
+            <label for="username">Tên đăng nhập hoặc email</label>
+            <input id="username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+            <p class="field-error" data-error-for="username"></p>
+          </div>
+
+          <div class="field">
+            <label for="password">Mật khẩu</label>
+            <div class="input-wrap">
+              <input id="password" name="password" type="password" autocomplete="current-password" required>
+              <button type="button" class="toggle" aria-label="Hiện mật khẩu" aria-pressed="false">Hiện</button>
+            </div>
+            <p class="field-error" data-error-for="password"></p>
+          </div>
+
+          <button type="submit" class="btn btn-block" id="submit-btn">Đăng nhập</button>
+        </form>
+
+        <p class="switch">Chưa có tài khoản? <a href="register.html">Đăng ký</a></p>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

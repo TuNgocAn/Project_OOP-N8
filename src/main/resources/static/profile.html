@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hồ sơ của tôi – BusTrack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="logo" href="profile.html" style="color:inherit">BusTrack</a>
+    <div class="topbar-user">
+      <span class="topbar-name" id="topbar-name"></span>
+      <button type="button" class="btn btn-quiet" id="logout-btn">Đăng xuất</button>
+    </div>
+  </header>
+
+  <main class="profile-wrap">
+    <h1>Hồ sơ của tôi</h1>
+    <p class="lead">Nhà xe dùng thông tin này để liên hệ với bạn khi đặt vé.</p>
+
+    <div id="alert" role="alert" hidden></div>
+    <p class="loading" id="loading">Đang tải hồ sơ…</p>
+
+    <section class="pass" id="pass" hidden>
+      <div class="pass-stub">
+        <div class="avatar" id="avatar" aria-hidden="true">?</div>
+        <div class="stub-text">
+          <p class="stub-name" id="stub-name"></p>
+          <p class="stub-meta" id="stub-username"></p>
+          <p class="stub-meta" id="stub-since"></p>
+        </div>
+      </div>
+
+      <form class="pass-body" id="profile-form" novalidate>
+        <div class="form-grid">
+          <div class="field">
+            <label for="username">Tên đăng nhập</label>
+            <input id="username" name="username" type="text" readonly>
+            <p class="hint">Tên đăng nhập không đổi được.</p>
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required>
+            <p class="field-error" data-error-for="email"></p>
+          </div>
+
+          <div class="field span-2">
+            <label for="hoTen">Họ và tên</label>
+            <input id="hoTen" name="hoTen" type="text" autocomplete="name" required>
+            <p class="field-error" data-error-for="hoTen"></p>
+          </div>
+
+          <div class="field">
+            <label for="soDienThoai">Số điện thoại</label>
+            <input id="soDienThoai" name="soDienThoai" type="tel" autocomplete="tel" inputmode="tel">
+            <p class="field-error" data-error-for="soDienThoai"></p>
+          </div>
+
+          <div class="field">
+            <label for="ngaySinh">Ngày sinh</label>
+            <input id="ngaySinh" name="ngaySinh" type="date" autocomplete="bday">
+            <p class="field-error" data-error-for="ngaySinh"></p>
+          </div>
+
+          <div class="field span-2">
+            <label for="diaChi">Địa chỉ</label>
+            <textarea id="diaChi" name="diaChi" rows="3" autocomplete="street-address"></textarea>
+            <p class="field-error" data-error-for="diaChi"></p>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn" id="save-btn">Lưu thay đổi</button>
+          <button type="button" class="btn btn-ghost" id="reset-btn">Hoàn tác</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/common.js"></script>
+  <script src="js/profile.js"></script>
+</body>
+</html>

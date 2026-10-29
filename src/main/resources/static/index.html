@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BusTrack</title>
+  <noscript><meta http-equiv="refresh" content="0; url=login.html"></noscript>
+</head>
+<body>
+  <script src="js/common.js"></script>
+  <script>
+    // Đã đăng nhập → vào hồ sơ, chưa thì về trang đăng nhập
+    apiFetch('/api/auth/me').then(function (r) {
+      location.replace(r.ok ? 'profile.html' : 'login.html');
+    });
+  </script>
+</body>
+</html>
