@@ -35,4 +35,6 @@ public interface ChuyenXeRepository extends JpaRepository<ChuyenXe, Integer> {
                                      @Param("tuNgay") LocalDate tuNgay,
                                      @Param("denNgay") LocalDate denNgay,
                                      @Param("boQuaMaChuyen") Integer boQuaMaChuyen);
+    // kiem tra co chuyen nao co lich trinh nay khong
+    boolean existsByLichTrinh_MaLichTrinh(Integer maLichTrinh);
 }
