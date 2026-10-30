@@ -1,12 +1,19 @@
 package TheoDoiChuyenXe.controller;
 
 import TheoDoiChuyenXe.dto.ChuyenXeDTO;
-import TheoDoiChuyenXe.entity.ChuyenXe;
-import TheoDoiChuyenXe.repository.ChuyenXeRepository;
+import TheoDoiChuyenXe.dto.ChuyenXeRequest;
+import TheoDoiChuyenXe.service.ChuyenXeService;
 
-import org.springframework.transaction.annotation.Transactional;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -15,50 +22,36 @@ import java.util.List;
 @RequestMapping("/api/chuyen-xe")
 public class ChuyenXeController {
 
-    private final ChuyenXeRepository chuyenXeRepository;
+    private final ChuyenXeService chuyenXeService;
 
-    public ChuyenXeController(
-            ChuyenXeRepository chuyenXeRepository) {
-        this.chuyenXeRepository = chuyenXeRepository;
+    public ChuyenXeController(ChuyenXeService chuyenXeService) {
+        this.chuyenXeService = chuyenXeService;
     }
 
     @GetMapping
-    @Transactional(readOnly = true)
-    public List<ChuyenXeDTO> getAllChuyenXe() {
+    public List<ChuyenXeDTO> layTatCa() {
+        return chuyenXeService.layTatCa();
+    }
 
-        List<ChuyenXe> danhSach = chuyenXeRepository.findAll();
+    @GetMapping("/{id}")
+    public ChuyenXeDTO layTheoId(@PathVariable Integer id) {
+        return chuyenXeService.layTheoId(id);
+    }
 
-        return danhSach.stream()
-                .map(cx -> new ChuyenXeDTO(
-                        cx.getMaChuyen(),
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ChuyenXeDTO tao(@Valid @RequestBody ChuyenXeRequest req) {
+        return chuyenXeService.tao(req);
+    }
 
-                        cx.getLichTrinh() != null
-                                ? cx.getLichTrinh().getDiemDi()
-                                : null,
+    @PutMapping("/{id}")
+    public ChuyenXeDTO capNhat(@PathVariable Integer id, @Valid @RequestBody ChuyenXeRequest req) {
+        return chuyenXeService.capNhat(id, req);
+    }
 
-                        cx.getLichTrinh() != null
-                                ? cx.getLichTrinh().getDiemDen()
-                                : null,
-
-                        cx.getNgayKhoiHanh(),
-                        cx.getGioKhoiHanh(),
-                        cx.getGioDuKienDen(),
-                        cx.getGiaVe(),
-
-                        cx.getNhaXe() != null
-                                ? cx.getNhaXe().getTenNhaXe()
-                                : null,
-
-                        cx.getTaiXe() != null
-                                ? cx.getTaiXe().getHoTen()
-                                : null,
-
-                        cx.getXe() != null
-                                ? cx.getXe().getBienSo()
-                                : null,
-
-                        cx.getTrangThai()
-                ))
-                .toList();
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void xoa(@PathVariable Integer id) {
+        chuyenXeService.xoa(id);
     }
 }
