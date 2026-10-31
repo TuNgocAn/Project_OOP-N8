@@ -1,0 +1,15 @@
+﻿# Java / Maven
+target/
+**/target/
+
+# IDE
+.idea/
+.vscode/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Local Spring Boot configuration
+backend/src/main/resources/application-local.properties

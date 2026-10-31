@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quản lý chuyến xe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="khung">
+    <header class="dau-trang">
+        <h1>Danh sách chuyến xe</h1>
+        <a class="nut nut-chinh" href="form.html">+ Thêm chuyến</a>
+    </header>
+
+    <div id="thongbao" class="thongbao" hidden></div>
+
+    <div class="bang-cuon">
+        <table>
+            <thead>
+            <tr>
+                <th>Mã</th><th>Tuyến</th><th>Ngày</th><th>Giờ đi</th><th>Giờ đến</th>
+                <th>Giá vé</th><th>Nhà xe</th><th>Biển số</th><th>Tài xế</th>
+                <th>Trạng thái</th><th>Thao tác</th>
+            </tr>
+            </thead>
+            <tbody id="danhsach">
+            <tr><td colspan="11">Đang tải...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</main>
+
+<script src="api.js"></script>
+<script>
+    async function taiDanhSach() {
+        const tbody = document.getElementById('danhsach');
+        const kq = await goiApi('/api/chuyen-xe');
+        if (!kq.ok) {
+            hienThongBao(kq.body.message || 'Không tải được danh sách chuyến xe', 'loi');
+            tbody.innerHTML = '<tr><td colspan="11">Không có dữ liệu</td></tr>';
+            return;
+        }
+        if (kq.body.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="11">Chưa có chuyến xe nào</td></tr>';
+            return;
+        }
+        tbody.innerHTML = kq.body.map(function (c) {
+            return '<tr>' +
+                '<td>' + thoat(c.maChuyen) + '</td>' +
+                '<td>' + thoat(c.diemDi) + ' → ' + thoat(c.diemDen) + '</td>' +
+                '<td>' + dinhDangNgay(c.ngayKhoiHanh) + '</td>' +
+                '<td>' + dinhDangGio(c.gioKhoiHanh) + '</td>' +
+                '<td>' + dinhDangGio(c.gioDuKienDen) + '</td>' +
+                '<td>' + dinhDangTien(c.giaVe) + '</td>' +
+                '<td>' + thoat(c.tenNhaXe) + '</td>' +
+                '<td>' + thoat(c.bienSo) + '</td>' +
+                '<td>' + thoat(c.hoTenTaiXe) + '</td>' +
+                '<td>' + nhanTrangThai(c.trangThai) + '</td>' +
+                '<td class="thao-tac">' +
+                '<a href="chi-tiet.html?id=' + thoat(c.maChuyen) + '">Xem</a>' +
+                '<a href="form.html?id=' + thoat(c.maChuyen) + '">Sửa</a>' +
+                '<button class="nut-xoa" data-id="' + thoat(c.maChuyen) + '">Xóa</button>' +
+                '</td>' +
+                '</tr>';
+        }).join('');
+    }
+
+    // Bấm nút Xóa
+    document.getElementById('danhsach').addEventListener('click', async function (e) {
+        const nut = e.target.closest('.nut-xoa');
+        if (!nut) return;
+        const id = nut.getAttribute('data-id');
+        if (!confirm('Xóa chuyến xe mã ' + id + '?')) return;
+        const kq = await goiApi('/api/chuyen-xe/' + id, 'DELETE');
+        if (kq.ok) {
+            hienThongBao('Đã xóa chuyến ' + id, 'ok');
+            taiDanhSach();
+        } else {
+            hienThongBao(kq.body.message || 'Không xóa được chuyến xe', 'loi');
+        }
+    });
+
+    taiDanhSach();
+</script>
+</body>
+</html>

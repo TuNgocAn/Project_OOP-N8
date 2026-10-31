@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chi tiết chuyến xe</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="khung">
+    <header class="dau-trang">
+        <h1>Chi tiết chuyến xe</h1>
+        <div>
+            <a class="nut" href="index.html">← Quay lại danh sách</a>
+            <a class="nut nut-chinh" id="nutSua" href="#" hidden>Sửa chuyến</a>
+        </div>
+    </header>
+
+    <div id="thongbao" class="thongbao" hidden></div>
+    <dl class="chi-tiet" id="noidung" hidden></dl>
+</main>
+
+<script src="api.js"></script>
+<script>
+    async function tai() {
+        const id = layThamSo('id');
+        if (!id) {
+            hienThongBao('Thiếu mã chuyến xe trên đường dẫn', 'loi');
+            return;
+        }
+        const kq = await goiApi('/api/chuyen-xe/' + id);
+        if (!kq.ok) {
+            hienThongBao(kq.body.message || 'Không tải được chuyến xe', 'loi');
+            return;
+        }
+        const c = kq.body;
+        const dong = [
+            ['Mã chuyến', thoat(c.maChuyen)],
+            ['Tuyến', thoat(c.diemDi) + ' → ' + thoat(c.diemDen)],
+            ['Ngày khởi hành', dinhDangNgay(c.ngayKhoiHanh)],
+            ['Giờ khởi hành', dinhDangGio(c.gioKhoiHanh)],
+            ['Giờ dự kiến đến', dinhDangGio(c.gioDuKienDen)],
+            ['Giá vé', dinhDangTien(c.giaVe)],
+            ['Nhà xe', thoat(c.tenNhaXe)],
+            ['Biển số xe', thoat(c.bienSo)],
+            ['Tài xế', thoat(c.hoTenTaiXe)],
+            ['Trạng thái', nhanTrangThai(c.trangThai)]
+        ];
+        const el = document.getElementById('noidung');
+        el.innerHTML = dong.map(function (d) {
+            return '<dt>' + d[0] + '</dt><dd>' + d[1] + '</dd>';
+        }).join('');
+        el.hidden = false;
+
+        const nut = document.getElementById('nutSua');
+        nut.href = 'form.html?id=' + encodeURIComponent(c.maChuyen);
+        nut.hidden = false;
+    }
+    tai();
+</script>
+</body>
+</html>

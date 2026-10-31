@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thêm / sửa chuyến xe</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .gio12 { display: flex; gap: 6px; }
+        .gio12 select { flex: 1; }
+    </style>
+</head>
+<body>
+<main class="khung">
+    <header class="dau-trang">
+        <h1 id="tieude">Thêm chuyến xe</h1>
+        <a class="nut" href="index.html">← Quay lại danh sách</a>
+    </header>
+
+    <div id="thongbao" class="thongbao" hidden></div>
+
+    <form id="form" class="the" novalidate>
+        <div class="luoi">
+            <div>
+                <label for="ngayKhoiHanh">Ngày khởi hành</label>
+                <input type="date" id="ngayKhoiHanh" name="ngayKhoiHanh">
+                <div class="loi-o" data-loi="ngayKhoiHanh"></div>
+            </div>
+            <div>
+                <label>Giờ khởi hành</label>
+                <div class="gio12" id="gioKhoiHanh">
+                    <select></select><select></select><select></select>
+                </div>
+                <div class="loi-o" data-loi="gioKhoiHanh"></div>
+            </div>
+            <div>
+                <label>Giờ dự kiến đến</label>
+                <div class="gio12" id="gioDuKienDen">
+                    <select></select><select></select><select></select>
+                </div>
+                <div class="loi-o" data-loi="gioDuKienDen"></div>
+            </div>
+            <div>
+                <label for="giaVe">Giá vé (đ)</label>
+                <input type="number" id="giaVe" name="giaVe" min="0" step="1000">
+                <div class="loi-o" data-loi="giaVe"></div>
+            </div>
+            <div>
+                <label for="maLichTrinh">Lịch trình (tuyến)</label>
+                <select id="maLichTrinh" name="maLichTrinh">
+                    <option value="">-- Chọn tuyến --</option>
+                </select>
+                <div class="loi-o" data-loi="maLichTrinh"></div>
+            </div>
+            <div>
+                <label for="maNhaXe">Mã nhà xe</label>
+                <input type="number" id="maNhaXe" name="maNhaXe" min="1">
+                <div class="loi-o" data-loi="maNhaXe"></div>
+            </div>
+            <div>
+                <label for="maXe">Mã xe</label>
+                <input type="number" id="maXe" name="maXe" min="1">
+                <div class="loi-o" data-loi="maXe"></div>
+            </div>
+            <div>
+                <label for="maTaiXe">Mã tài xế</label>
+                <input type="number" id="maTaiXe" name="maTaiXe" min="1">
+                <div class="loi-o" data-loi="maTaiXe"></div>
+            </div>
+            <div id="oTrangThai" hidden>
+                <label for="trangThai">Trạng thái</label>
+                <select id="trangThai" name="trangThai">
+                    <option value="ChuaChay">Chưa chạy</option>
+                    <option value="DangChay">Đang chạy</option>
+                    <option value="HoanThanh">Hoàn thành</option>
+                    <option value="Huy">Đã hủy</option>
+                </select>
+                <div class="loi-o" data-loi="trangThai"></div>
+            </div>
+        </div>
+
+        <p style="font-size:13px;color:#64748b;margin:14px 0 0">
+        </p>
+
+        <div class="hang-nut">
+            <button type="submit" class="nut nut-chinh">Lưu</button>
+            <a class="nut" href="index.html">Hủy</a>
+        </div>
+    </form>
+</main>
+
+<script src="api.js"></script>
+<script>
+    const id = layThamSo('id');
+    const form = document.getElementById('form');
+
+    // hh:mm AM/PM
+    function khoiTaoGio12(idGoc) {
+        const s = document.getElementById(idGoc).querySelectorAll('select');
+        let h = '<option value="">Giờ</option>';
+        for (let i = 1; i <= 12; i++) h += '<option value="' + i + '">' + i + '</option>';
+        let m = '<option value="">Phút</option>';
+        for (let i = 0; i < 60; i++) {
+            const p = String(i).padStart(2, '0');
+            m += '<option value="' + p + '">' + p + '</option>';
+        }
+        s[0].innerHTML = h;
+        s[1].innerHTML = m;
+        s[2].innerHTML = '<option value="AM">AM</option><option value="PM">PM</option>';
+    }
+
+    // HH:mm:ss
+    function docGio12(idGoc) {
+        const s = document.getElementById(idGoc).querySelectorAll('select');
+        const h = s[0].value, m = s[1].value, ap = s[2].value;
+        if (h === '' && m === '') return { gio: null, loi: false };
+        if (h === '' || m === '') return { gio: null, loi: true };
+        let h24 = parseInt(h, 10) % 12;   // 12 AM -> 0, 12 PM -> 12
+        if (ap === 'PM') h24 += 12;
+        return { gio: String(h24).padStart(2, '0') + ':' + m + ':00', loi: false };
+    }
+
+
+    function datGio12(idGoc, gio) {
+        if (!gio) return;
+        const s = document.getElementById(idGoc).querySelectorAll('select');
+        const h24 = parseInt(String(gio).substring(0, 2), 10);
+        s[0].value = String(h24 % 12 || 12);
+        s[1].value = String(gio).substring(3, 5);
+        s[2].value = h24 >= 12 ? 'PM' : 'AM';
+    }
+
+    function xoaLoiO() {
+        document.querySelectorAll('[data-loi]').forEach(function (el) { el.textContent = ''; });
+    }
+
+    function hienLoiO(errors) {
+        Object.keys(errors).forEach(function (ten) {
+            const el = document.querySelector('[data-loi="' + ten + '"]');
+            if (el) el.textContent = errors[ten];
+        });
+    }
+
+    function layInt(v) { return v === '' ? null : parseInt(v, 10); }
+
+    async function khoiTao() {
+        khoiTaoGio12('gioKhoiHanh');
+        khoiTaoGio12('gioDuKienDen');
+
+        // danh sach lich trinh
+        const lt = await goiApi('/api/lich-trinh');
+        const chon = form.elements['maLichTrinh'];
+        if (lt.ok) {
+            lt.body.forEach(function (l) {
+                const o = document.createElement('option');
+                o.value = l.maLichTrinh;
+                o.textContent = l.diemDi + ' → ' + l.diemDen + ' (mã ' + l.maLichTrinh + ')';
+                chon.appendChild(o);
+            });
+        } else {
+            hienThongBao(lt.body.message || 'Không tải được danh sách lịch trình', 'loi');
+        }
+
+        // ghi san du lieu cho chuyen
+        if (id) {
+            document.getElementById('tieude').textContent = 'Sửa chuyến xe mã ' + id;
+            document.getElementById('oTrangThai').hidden = false;
+            const kq = await goiApi('/api/chuyen-xe/' + id);
+            if (!kq.ok) {
+                hienThongBao(kq.body.message || 'Không tải được chuyến xe', 'loi');
+                return;
+            }
+            const c = kq.body;
+            const f = form.elements;
+            f['ngayKhoiHanh'].value = c.ngayKhoiHanh || '';
+            datGio12('gioKhoiHanh', c.gioKhoiHanh);
+            datGio12('gioDuKienDen', c.gioDuKienDen);
+            f['giaVe'].value = c.giaVe;
+            f['maLichTrinh'].value = c.maLichTrinh;
+            f['maNhaXe'].value = c.maNhaXe;
+            f['maXe'].value = c.maXe;
+            f['maTaiXe'].value = c.maTaiXe;
+            f['trangThai'].value = c.trangThai;
+        }
+    }
+
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        xoaLoiO();
+        document.getElementById('thongbao').hidden = true;
+
+        const gDi = docGio12('gioKhoiHanh');
+        const gDen = docGio12('gioDuKienDen');
+        let coLoiGio = false;
+        [['gioKhoiHanh', gDi], ['gioDuKienDen', gDen]].forEach(function (x) {
+            if (x[1].loi) {
+                document.querySelector('[data-loi="' + x[0] + '"]').textContent = 'Chọn đủ giờ, phút và AM/PM';
+                coLoiGio = true;
+            }
+        });
+        if (coLoiGio) return;
+
+        const f = form.elements;
+        const duLieu = {
+            ngayKhoiHanh: f['ngayKhoiHanh'].value || null,
+            gioKhoiHanh: gDi.gio,
+            gioDuKienDen: gDen.gio,
+            giaVe: f['giaVe'].value === '' ? null : Number(f['giaVe'].value),
+            maNhaXe: layInt(f['maNhaXe'].value),
+            maXe: layInt(f['maXe'].value),
+            maTaiXe: layInt(f['maTaiXe'].value),
+            maLichTrinh: layInt(f['maLichTrinh'].value)
+        };
+        if (id) duLieu.trangThai = f['trangThai'].value;
+
+        const kq = id
+            ? await goiApi('/api/chuyen-xe/' + id, 'PUT', duLieu)
+            : await goiApi('/api/chuyen-xe', 'POST', duLieu);
+
+        if (kq.ok) {
+            location.href = 'index.html';
+            return;
+        }
+        hienThongBao(kq.body.message || 'Không lưu được chuyến xe', 'loi');
+        if (kq.body.errors) hienLoiO(kq.body.errors);
+    });
+
+    khoiTao();
+</script>
+</body>
+</html>
