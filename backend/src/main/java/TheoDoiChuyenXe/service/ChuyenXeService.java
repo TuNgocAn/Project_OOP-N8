@@ -171,7 +171,7 @@ public class ChuyenXeService {
     }
 
     private ChuyenXeDTO chuyenSangDTO(ChuyenXe cx) {
-        return new ChuyenXeDTO(
+        ChuyenXeDTO dto = new ChuyenXeDTO(
                 cx.getMaChuyen(),
                 cx.getLichTrinh() != null ? cx.getLichTrinh().getDiemDi() : null,
                 cx.getLichTrinh() != null ? cx.getLichTrinh().getDiemDen() : null,
@@ -183,5 +183,10 @@ public class ChuyenXeService {
                 cx.getTaiXe() != null ? cx.getTaiXe().getHoTen() : null,
                 cx.getXe() != null ? cx.getXe().getBienSo() : null,
                 cx.getTrangThai());
+        if (cx.getNhaXe() != null) dto.setMaNhaXe(cx.getNhaXe().getMaNhaXe());
+        if (cx.getXe() != null) dto.setMaXe(cx.getXe().getMaXe());
+        if (cx.getTaiXe() != null) dto.setMaTaiXe(cx.getTaiXe().getMaTaiXe());
+        if (cx.getLichTrinh() != null) dto.setMaLichTrinh(cx.getLichTrinh().getMaLichTrinh());
+        return dto;
     }
 }

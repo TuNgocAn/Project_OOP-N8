@@ -90,4 +90,22 @@ public class ChuyenXeDTO {
     public String getTrangThai() {
         return trangThai;
     }
+
+    // PK
+    private Integer maNhaXe;
+    private Integer maXe;
+    private Integer maTaiXe;
+    private Integer maLichTrinh;
+
+    public Integer getMaNhaXe() { return maNhaXe; }
+    public void setMaNhaXe(Integer maNhaXe) { this.maNhaXe = maNhaXe; }
+
+    public Integer getMaXe() { return maXe; }
+    public void setMaXe(Integer maXe) { this.maXe = maXe; }
+
+    public Integer getMaTaiXe() { return maTaiXe; }
+    public void setMaTaiXe(Integer maTaiXe) { this.maTaiXe = maTaiXe; }
+
+    public Integer getMaLichTrinh() { return maLichTrinh; }
+    public void setMaLichTrinh(Integer maLichTrinh) { this.maLichTrinh = maLichTrinh; }
 }
